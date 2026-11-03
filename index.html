@@ -5,6 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>红尘客栈 · 一首歌送给一个人</title>
 <style>
+
+  /* ===== 书法字体（开源：马善政毛笔楷书 / 志莽行书，OFL） ===== */
+  @font-face{
+    font-family:"HongChenBrush";
+    src:url("brush.woff2") format("woff2");
+    font-weight:400;font-style:normal;font-display:swap;
+  }
+  @font-face{
+    font-family:"HongChenCursive";
+    src:url("cursive.woff2") format("woff2");
+    font-weight:400;font-style:normal;font-display:swap;
+  }
   :root{
     --paper:#f1ebdf;
     --ink:#15130f;
@@ -15,6 +27,8 @@
     --line:rgba(21,19,15,.13);
     --serif:"Songti SC","STSong","SimSun","Noto Serif CJK SC",serif;
     --kai:"Kaiti SC","STKaiti","KaiTi","Songti SC",serif;
+    --brush:"HongChenBrush","Kaiti SC","STKaiti","KaiTi",serif;
+    --cur:"HongChenCursive","Kaiti SC","STKaiti","KaiTi",serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -40,7 +54,7 @@
   .title-line{display:flex;align-items:flex-start;gap:clamp(20px,3.2vw,44px)}
   .vtitle{
     writing-mode:vertical-rl;text-orientation:upright;
-    font-size:clamp(42px,6.9vw,78px);line-height:1.08;letter-spacing:.06em;font-weight:700;
+    font-family:var(--brush);font-size:clamp(46px,7.6vw,86px);line-height:1.12;letter-spacing:.02em;font-weight:700;
     color:#16130f;
     filter:drop-shadow(0 10px 30px rgba(21,19,15,.20));
   }
@@ -53,7 +67,7 @@
   .seal{
     width:clamp(54px,7vw,70px);aspect-ratio:1;background:var(--cin);color:#fdf7ea;border-radius:4px;
     display:flex;align-items:center;justify-content:center;text-align:center;
-    font-family:var(--kai);font-size:clamp(12px,2vw,15px);line-height:1.2;letter-spacing:1px;
+    font-family:var(--brush);font-size:clamp(13px,2.1vw,16px);line-height:1.15;letter-spacing:0;
     transform:rotate(-5deg);box-shadow:0 12px 28px rgba(158,43,34,.30), inset 0 0 0 2px rgba(253,247,234,.3);
     margin-top:6px;
   }
@@ -72,10 +86,10 @@
   section + section{border-top:1px solid var(--line)}
   section + section::before{content:"◆";position:absolute;top:-9px;left:50%;transform:translateX(-50%);
     font-size:9px;color:var(--gold);background:var(--paper);padding:0 12px;line-height:1}
-  .kicker{display:flex;align-items:center;gap:14px;font-family:var(--kai);font-size:12.5px;
+  .kicker{display:flex;align-items:center;gap:14px;font-family:var(--cur);font-size:12.5px;
           letter-spacing:.46em;color:var(--cin);margin-bottom:26px}
   .kicker::after{content:"";flex:1;height:1px;background:linear-gradient(to right,var(--line),transparent)}
-  h2{position:relative;padding-left:20px;font-size:clamp(23px,4.8vw,31px);font-weight:700;line-height:1.55;letter-spacing:.04em;margin-bottom:30px}
+  h2{position:relative;padding-left:20px;font-family:var(--brush);font-weight:400;font-size:clamp(25px,5.2vw,34px);line-height:1.62;letter-spacing:.03em;margin-bottom:30px}
   h2::before{content:"";position:absolute;left:0;top:.16em;bottom:.16em;width:3px;background:var(--cin)}
   h2 .gl{color:var(--gold)}
   p{font-size:clamp(15px,3.7vw,16.5px);color:var(--ink-2);margin-bottom:18px;letter-spacing:.02em}
@@ -141,7 +155,7 @@
     display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
     font-family:var(--kai);font-size:14px;color:var(--ink-3);letter-spacing:.18em}
   .sign .stamp{color:var(--cin)}
-  .sign .who{font-size:17px;letter-spacing:.14em;color:var(--ink);font-family:var(--kai);line-height:1.6}
+  .sign .who{font-size:19px;letter-spacing:.1em;color:var(--ink);font-family:var(--cur);line-height:1.6}
 
   .reveal{opacity:0;transform:translateY(30px);transition:opacity 1s ease,transform 1s cubic-bezier(.2,.7,.3,1)}
   .reveal.in{opacity:1;transform:none}
@@ -194,11 +208,11 @@
   #end .sign{margin-top:44px}
   .poem{margin:6px 0 4px}
   .poem p{
-    font-family:var(--kai);font-size:clamp(24px,5.4vw,34px);
+    font-family:var(--brush);font-size:clamp(28px,6.2vw,40px);
     line-height:2.1;letter-spacing:.16em;color:var(--ink);margin:0
   }
   .poem p.wish{
-    margin-top:18px;font-size:clamp(20px,4.4vw,27px);color:var(--cin);letter-spacing:.14em
+    margin-top:20px;font-family:var(--brush);font-size:clamp(23px,5vw,30px);color:var(--cin);letter-spacing:.08em
   }
   @media (prefers-reduced-motion:reduce){
     .reveal{opacity:1;transform:none;transition:none}
