@@ -199,7 +199,7 @@
 
   /* ===== 各节淡墨背景 ===== */
   section{overflow:hidden}
-  section > *:not(.deco){position:relative;z-index:1}
+  section > *:not(.deco):not(.deco-prop){position:relative;z-index:1}
   .deco{position:absolute;pointer-events:none;z-index:0;color:#b9ab8e;opacity:.16}
   .deco svg{display:block;width:100%;height:100%}
   .deco-tr{top:-10px;right:-40px;width:300px;height:300px}
@@ -272,12 +272,26 @@
   }
   @media (max-width:680px){
     .wrap::after{display:none}
-    .wrap::before{left:-30px;right:-30px}
+    .wrap::before{left:0;right:0}
   }
+  html,body{overflow-x:hidden;max-width:100%}
 
 
   /* ===== 各节专属小物（仅宽屏显示，不压正文） ===== */
   .deco-prop{display:none}
+
+  /* 手机与平板：缩小贴身摆放，藏在文字之后 */
+  @media (max-width:999px){
+    .deco-prop{
+      display:block;position:absolute;z-index:0;pointer-events:none;
+      color:#9c8c6e;will-change:transform;
+    }
+    .deco-prop svg{display:block;width:100%;height:100%}
+    .deco-boat{bottom:2px;right:-30px;width:148px;height:78px;opacity:.20}
+    .deco-tassel{top:6px;right:-12px;width:56px;height:168px;opacity:.18}
+    .deco-lantern{bottom:54px;right:-26px;width:84px;height:138px;opacity:.18}
+  }
+
   @media (min-width:1000px){
     .deco-prop{display:block;position:absolute;z-index:0;pointer-events:none;color:#9c8c6e;opacity:.30;will-change:transform}
     .deco-prop svg{display:block;width:100%;height:100%}
