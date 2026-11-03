@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>红尘客栈 · 一首歌送给一个人</title>
+<style>
+  :root{
+    --paper:#f1ebdf;
+    --ink:#15130f;
+    --ink-2:#3f3a32;
+    --ink-3:#7d766a;
+    --gold:#b08a4e;
+    --cin:#9e2b22;
+    --line:rgba(21,19,15,.13);
+    --serif:"Songti SC","STSong","SimSun","Noto Serif CJK SC",serif;
+    --kai:"Kaiti SC","STKaiti","KaiTi","Songti SC",serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--serif);color:var(--ink);background:var(--paper);line-height:1.9;
+       -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.42;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.3'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;
+  }
+
+  /* ================= HERO ================= */
+  .hero{position:relative;height:100svh;min-height:640px;overflow:hidden}
+  .hero-scene{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .hero-stage{
+    position:relative;z-index:3;height:100%;max-width:1180px;margin:0 auto;
+    padding:clamp(56px,12vh,124px) clamp(24px,5vw,56px) 0;display:flex;flex-direction:column;justify-content:flex-start;
+  }
+  .eyebrow{
+    font-family:var(--kai);font-size:12.5px;letter-spacing:.5em;color:var(--cin);
+    margin-bottom:clamp(18px,3.4vh,34px);
+  }
+  .title-line{display:flex;align-items:flex-start;gap:clamp(20px,3.2vw,44px)}
+  .vtitle{
+    writing-mode:vertical-rl;text-orientation:upright;
+    font-size:clamp(42px,6.9vw,78px);line-height:1.08;letter-spacing:.06em;font-weight:700;
+    color:#16130f;
+    filter:drop-shadow(0 10px 30px rgba(21,19,15,.20));
+  }
+  .side{display:flex;flex-direction:column;gap:16px;padding-top:.4em}
+  .meta-row{
+    font-family:var(--kai);font-size:clamp(12px,2.6vw,14px);color:var(--ink-2);
+    letter-spacing:.2em;line-height:2.3;
+  }
+  .meta-row em{font-style:normal;color:var(--gold)}
+  .seal{
+    width:clamp(54px,7vw,70px);aspect-ratio:1;background:var(--cin);color:#fdf7ea;border-radius:4px;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    font-family:var(--kai);font-size:clamp(12px,2vw,15px);line-height:1.2;letter-spacing:1px;
+    transform:rotate(-5deg);box-shadow:0 12px 28px rgba(158,43,34,.30), inset 0 0 0 2px rgba(253,247,234,.3);
+    margin-top:6px;
+  }
+  .hero-foot{
+    position:absolute;left:0;right:0;bottom:0;z-index:4;
+    padding:0 clamp(24px,5vw,56px) 26px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;
+    font-size:12px;letter-spacing:.22em;color:#5f594d;
+  }
+  .scroll{display:flex;align-items:center;gap:10px}
+  .scroll i{display:block;width:1px;height:32px;background:linear-gradient(to bottom,var(--ink-3),transparent);animation:drop 2.4s ease-in-out infinite}
+  @keyframes drop{0%,100%{transform:translateY(-4px);opacity:.45}50%{transform:translateY(6px);opacity:1}}
+
+  /* ================= 正文 ================= */
+  .wrap{position:relative;z-index:2;max-width:780px;margin:0 auto;padding:0 30px 130px}
+  section{padding:92px 0;position:relative}
+  section + section{border-top:1px solid var(--line)}
+  section + section::before{content:"◆";position:absolute;top:-9px;left:50%;transform:translateX(-50%);
+    font-size:9px;color:var(--gold);background:var(--paper);padding:0 12px;line-height:1}
+  .kicker{display:flex;align-items:center;gap:14px;font-family:var(--kai);font-size:12.5px;
+          letter-spacing:.46em;color:var(--cin);margin-bottom:26px}
+  .kicker::after{content:"";flex:1;height:1px;background:linear-gradient(to right,var(--line),transparent)}
+  h2{position:relative;padding-left:20px;font-size:clamp(23px,4.8vw,31px);font-weight:700;line-height:1.55;letter-spacing:.04em;margin-bottom:30px}
+  h2::before{content:"";position:absolute;left:0;top:.16em;bottom:.16em;width:3px;background:var(--cin)}
+  h2 .gl{color:var(--gold)}
+  p{font-size:clamp(15px,3.7vw,16.5px);color:var(--ink-2);margin-bottom:18px;letter-spacing:.02em}
+  p strong{color:var(--ink);font-weight:600;box-shadow:inset 0 -8px 0 rgba(176,138,78,.22)}
+  .letter{font-family:var(--kai);font-size:clamp(16.5px,4vw,19px);line-height:2.2;color:var(--ink)}
+  .letter p{margin-bottom:22px}
+  .letter p:first-child::first-letter{
+    float:left;font-size:3.1em;line-height:.88;padding:8px 12px 0 0;color:var(--cin);font-family:var(--kai)
+  }
+
+  .reasons{list-style:none;counter-reset:r;display:grid;gap:22px}
+  .reasons li{counter-increment:r;position:relative;padding:26px 28px 24px 74px;
+    background:linear-gradient(180deg,rgba(255,255,255,.66),rgba(255,255,255,.22));
+    border:1px solid var(--line);border-left:2px solid var(--gold);
+    transition:transform .45s cubic-bezier(.2,.7,.3,1),box-shadow .45s,border-left-color .45s}
+  .reasons li:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(21,19,15,.10);border-left-color:var(--cin)}
+  .reasons li::before{content:counter(r,decimal-leading-zero);position:absolute;left:26px;top:30px;
+    font-family:var(--kai);font-size:13px;letter-spacing:.12em;color:var(--gold)}
+  .reasons h3{font-size:clamp(16.5px,4vw,18.5px);font-weight:700;margin-bottom:8px;letter-spacing:.03em}
+  .reasons p{margin:0;font-size:clamp(14px,3.5vw,15.3px)}
+
+  .scrollbox{position:relative;margin:34px 0 26px;padding:54px 40px 46px;
+    background:linear-gradient(180deg,#fbf7ec,#f3ecdc);
+    border:1px solid rgba(176,138,78,.42);border-left:3px solid var(--cin);
+    box-shadow:0 24px 60px rgba(21,19,15,.09), inset 0 0 0 1px rgba(255,255,255,.6)}
+  .scrollbox::before,.scrollbox::after{content:"";position:absolute;left:22px;right:22px;height:1px;
+    background:repeating-linear-gradient(90deg,rgba(176,138,78,.55) 0 8px,transparent 8px 14px)}
+  .scrollbox::before{top:16px}
+  .scrollbox::after{bottom:16px}
+  .lyric p{font-family:var(--kai);font-size:clamp(20px,5.2vw,28px);line-height:2.05;
+    color:var(--ink);margin-bottom:10px;letter-spacing:.1em}
+  .lyric p:nth-child(3){color:var(--cin)}
+  .lyric .from{margin-top:24px;font-family:var(--serif);font-size:12.5px;color:var(--ink-3);letter-spacing:.16em}
+  .lyric-mark{position:absolute;right:34px;bottom:30px;width:44px;height:44px;
+    border:1px solid rgba(158,43,34,.5);color:var(--cin);font-family:var(--kai);font-size:10px;
+    line-height:1.1;display:flex;align-items:center;justify-content:center;text-align:center;
+    transform:rotate(3deg);opacity:.85}
+
+  .howto{list-style:none;counter-reset:h}
+  .howto li{counter-increment:h;position:relative;padding:20px 0 20px 46px;
+    border-bottom:1px dashed var(--line);font-size:clamp(14.5px,3.6vw,16px)}
+  .howto li:last-child{border-bottom:none}
+  .howto li::before{content:counter(h);position:absolute;left:0;top:22px;width:24px;height:24px;
+    font-family:var(--kai);font-size:12px;color:var(--gold);
+    display:flex;align-items:center;justify-content:center;border:1px solid rgba(176,138,78,.5);border-radius:50%}
+  .howto b{color:var(--ink);font-weight:600;margin-right:6px}
+
+  .actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:40px}
+  .btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:10px;
+    padding:16px 34px;text-decoration:none;font-size:14.5px;letter-spacing:.16em;
+    color:#fdf7ea;border:1px solid var(--cin);background:var(--cin);
+    transition:color .4s ease,box-shadow .4s ease;z-index:1;box-shadow:0 10px 26px rgba(158,43,34,.22)}
+  .btn::before{content:"";position:absolute;inset:0;background:#1c1a17;transform:scaleX(0);
+    transform-origin:left;transition:transform .45s cubic-bezier(.2,.7,.3,1);z-index:-1}
+  .btn:hover{color:#fdf7ea;box-shadow:0 14px 34px rgba(21,19,15,.24)}
+  .btn:hover::before{transform:scaleX(1)}
+  .btn.ghost{color:var(--ink-2);background:transparent;border-color:var(--line);box-shadow:none}
+  .btn.ghost::before{background:var(--ink)}
+  .btn.ghost:hover{color:var(--paper)}
+
+  .sign{margin-top:56px;padding-top:32px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
+    font-family:var(--kai);font-size:14px;color:var(--ink-3);letter-spacing:.18em}
+  .sign .stamp{color:var(--cin)}
+
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity 1s ease,transform 1s cubic-bezier(.2,.7,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    .scroll i{animation:none}
+    html{scroll-behavior:auto}
+  }
+  @media (max-width:680px){
+    /* 竖屏下月亮会落到文字后面，加一层柔光纱保证可读 */
+    .hero-stage{justify-content:flex-start;padding-top:14vh;
+      background:radial-gradient(120% 82% at 26% 34%, rgba(243,237,226,.94) 0%, rgba(243,237,226,.72) 42%, rgba(243,237,226,0) 74%)}
+    .title-line{gap:18px}
+    .hero-foot{font-size:10.5px;letter-spacing:.12em}
+    .wrap{padding:0 22px 100px}
+    section{padding:70px 0}
+    .scrollbox{padding:46px 22px 40px}
+    .lyric-mark{right:18px;bottom:16px;width:36px;height:36px;font-size:9px}
+    .reasons li{padding:22px 20px 20px 62px}
+    .reasons li::before{left:18px;top:26px}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <svg class="hero-scene" viewBox="0 0 1440 900" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#f8f3e8"/>
+        <stop offset="52%" stop-color="#eee5d4"/>
+        <stop offset="100%" stop-color="#ded1b8"/>
+      </linearGradient>
+      <radialGradient id="moon" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#fdf6e4" stop-opacity="1"/>
+        <stop offset="55%" stop-color="#f4e6c6" stop-opacity=".5"/>
+        <stop offset="100%" stop-color="#f4e6c6" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="m1" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#7a7061" stop-opacity=".30"/>
+        <stop offset="62%" stop-color="#8d8373" stop-opacity=".16"/>
+        <stop offset="100%" stop-color="#f1ebdf" stop-opacity=".92"/>
+      </linearGradient>
+      <linearGradient id="m2" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#544b3d" stop-opacity=".46"/>
+        <stop offset="58%" stop-color="#6b6252" stop-opacity=".26"/>
+        <stop offset="100%" stop-color="#eee6d6" stop-opacity=".94"/>
+      </linearGradient>
+      <linearGradient id="m3" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#2f2a22" stop-opacity=".70"/>
+        <stop offset="55%" stop-color="#3d372d" stop-opacity=".46"/>
+        <stop offset="100%" stop-color="#f1ebdf" stop-opacity="1"/>
+      </linearGradient>
+      <linearGradient id="vig" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#efe8da" stop-opacity="0"/>
+        <stop offset="70%" stop-color="#efe8da" stop-opacity=".12"/>
+        <stop offset="100%" stop-color="#f1ebdf" stop-opacity=".55"/>
+      </linearGradient>
+      <linearGradient id="blend" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#f1ebdf" stop-opacity="0"/>
+        <stop offset="100%" stop-color="#f1ebdf" stop-opacity="1"/>
+      </linearGradient>
+      <filter id="b1"><feGaussianBlur stdDeviation="10"/></filter>
+      <filter id="b2"><feGaussianBlur stdDeviation="42"/></filter>
+    </defs>
+
+    <rect width="1440" height="900" fill="url(#sky)"/>
+
+    <g id="moonGroup">
+      <circle cx="1128" cy="212" r="210" fill="url(#moon)"/>
+      <circle cx="1128" cy="212" r="92" fill="#fdf9ee" opacity=".95"/>
+    </g>
+
+    <!-- 远山 -->
+    <g id="layer1">
+      <path d="M0,690 L92,690 L206,556 L298,604 L356,556 L468,660 L522,640 L614,506 L702,602 L764,580 L862,660 L942,618 L1042,536 L1142,640 L1212,600 L1302,660 L1382,620 L1440,648 L1440,900 L0,900 Z" fill="url(#m1)"/>
+    </g>
+    <!-- 雾 -->
+    
+    
+
+    <!-- 中山 -->
+    <g id="layer2">
+      <path d="M0,762 L108,762 L182,656 L262,702 L332,636 L432,730 L502,690 L602,596 L692,700 L762,668 L862,720 L942,688 L1042,616 L1132,700 L1212,666 L1312,730 L1390,698 L1440,716 L1440,900 L0,900 Z" fill="url(#m2)"/>
+    </g>
+    <ellipse cx="720" cy="748" rx="700" ry="38" fill="#f7f1e3" opacity=".22" filter="url(#b2)"/>
+
+    <!-- 近山 -->
+    <g id="layer3">
+      <path d="M0,832 L128,832 L202,736 L282,792 L362,716 L462,802 L542,768 L652,686 L752,782 L832,748 L932,792 L1022,726 L1122,802 L1212,768 L1322,822 L1402,788 L1440,802 L1440,900 L0,900 Z" fill="url(#m3)"/>
+    </g>
+
+    <!-- 松枝 -->
+    <g opacity=".42" fill="none" stroke="#3a332a" stroke-linecap="round">
+      <path d="M150,900 C166,812 186,754 232,700" stroke-width="1.3"/>
+      <path d="M180,800 C204,790 224,778 240,760" stroke-width="1.1"/>
+      <path d="M166,842 C194,836 214,822 230,804" stroke-width="1.1"/>
+      <path d="M196,764 C216,754 230,742 240,726" stroke-width="1"/>
+    </g>
+
+    <!-- 飞鸟 -->
+    <g id="birds" fill="none" stroke="#4a4237" stroke-width="1.5" stroke-linecap="round" opacity=".5">
+      <path d="M846,296 q9 -8 18 0 q9 -8 18 0"/>
+      <path d="M906,262 q7 -6 14 0 q7 -6 14 0"/>
+      <path d="M882,336 q6 -5 12 0 q6 -5 12 0"/>
+    </g>
+  <rect x="0" y="620" width="1440" height="280" fill="url(#vig)" opacity=".55"/>
+  </svg>
+
+  <div class="hero-stage">
+    <div class="eyebrow">一首歌 · 送给一个人</div>
+    <div class="title-line">
+      <h1 class="vtitle">红尘客栈</h1>
+      <div class="side">
+        <div class="meta-row">
+          周杰伦 <em>曲</em>　／　方文山 <em>词</em><br/>
+          二〇一二《十二新作》<br/>
+          中国风　三分四十七秒
+        </div>
+        <div class="seal">红尘<br/>客舍</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-foot">
+    <div>分享 · 不为劝你什么</div>
+    <div class="scroll">往下看 <i></i></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="reveal" id="intro">
+    <div class="kicker">写在前面</div>
+    <div class="letter">
+      <p>知道你不听周杰伦，也不看武侠。</p>
+      <p>但我还是想把这首歌塞给你——它三分钟里，把一个人的整个江湖过完了：进来的时候满身风尘，出去的时候只剩一句"我只求今朝"。</p>
+      <p>你最近很累。我不劝你什么，就想让你听一遍这个。</p>
+    </div>
+  </section>
+
+  <section class="reveal" id="why">
+    <div class="kicker">为什么是这首</div>
+    <h2>三个理由，<span class="gl">你随便挑一个信</span></h2>
+    <ol class="reasons">
+      <li>
+        <h3>词：把"客栈"写成了人生中转站</h3>
+        <p>"红尘"是入世，"客栈"是暂住。方文山没用一句大道理，却把一个道理藏进了地名里——我们多数人都是路过的，能留下的只有那几夜。</p>
+      </li>
+      <li>
+        <h3>曲：二胡和琵琶进得很早</h3>
+        <p>前奏就把你拽进去了。副歌一转，像推门进屋，外面骤雨还在下，屋里忽然安静。这种"忽然安静"，整张专辑里只有这一首做得这么准。</p>
+      </li>
+      <li>
+        <h3>唱：这次他咬字很清楚</h3>
+        <p>因为他知道这词不能含糊。"折腰""宿命敲"这种字，含在嘴里就废了。他罕见地用了很直的唱法，反而更有劲。</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="reveal" id="lyric">
+    <div class="kicker">摘句</div>
+    <h2>四句，<span class="gl">够你判断要不要往下听</span></h2>
+    <div class="scrollbox">
+      <div class="lyric">
+        <p>剑出鞘　恩怨了　谁笑</p>
+        <p>红尘客栈风似刀　骤雨落　宿命敲</p>
+        <p>任武林谁领风骚　我却只为你折腰</p>
+        <p>我只求今朝　拥你入怀抱</p>
+        <div class="from">—《红尘客栈》歌词摘句（方文山）</div>
+      </div>
+      <div class="lyric-mark">摘<br/>句</div>
+    </div>
+    <p>如果只记一句，记第三句。一个在江湖里争了大半辈子的人，最后把"折腰"这两个字用在一个人身上。</p>
+  </section>
+
+  <section class="reveal" id="howto">
+    <div class="kicker">怎么听</div>
+    <h2>按我说的来，<span class="gl">效果差很多</span></h2>
+    <ul class="howto">
+      <li><b>戴耳机</b>别外放，这首歌的层次全在左右声道里。</li>
+      <li><b>从 0:58 起</b>前奏别跳；实在没耐心，从主歌进去也行。</li>
+      <li><b>听满两遍</b>第一遍听旋律，第二遍听词，第三遍你会开始注意间奏。</li>
+      <li><b>别边刷手机边听</b>不到四分钟，值得你放下手机。</li>
+    </ul>
+    <div class="actions">
+      <a class="btn" href="https://music.163.com/#/search/m/?s=%E7%BA%A2%E5%B0%98%E5%AE%A2%E6%A0%88" target="_blank" rel="noopener">网易云音乐 · 去听</a>
+      <a class="btn ghost" href="https://y.qq.com/n/ryqq/search?w=%E7%BA%A2%E5%B0%98%E5%AE%A2%E6%A0%88" target="_blank" rel="noopener">QQ 音乐 · 去听</a>
+    </div>
+  </section>
+
+  <section class="reveal" id="end">
+    <div class="kicker">最后一句</div>
+    <h2>听完了<span class="gl">跟我说一声</span></h2>
+    <p>不用夸它好听，只要告诉我：<strong>你听的时候，想到的是谁。</strong></p>
+    <p>这首我听了十三年，每次想到的人都不太一样。这大概就是它厉害的地方。</p>
+    <div class="sign">
+      <span>—— 分享给你的人</span>
+      <span class="stamp">二〇二六 · 冬</span>
+    </div>
+  </section>
+</main>
+
+<script>
+  (function(){
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var l1=document.getElementById('layer1'), l2=document.getElementById('layer2'),
+        l3=document.getElementById('layer3'), mg=document.getElementById('moonGroup'),
+        ticking=false;
+    function onScroll(){
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function(){
+        var y = window.scrollY || 0;
+        if (y < window.innerHeight * 1.3){
+          l1.style.transform = 'translateY(' + (y*0.05) + 'px)';
+          l2.style.transform = 'translateY(' + (y*0.11) + 'px)';
+          l3.style.transform = 'translateY(' + (y*0.18) + 'px)';
+          mg.style.transform = 'translateY(' + (y*0.09) + 'px)';
+        }
+        ticking = false;
+      });
+    }
+    window.addEventListener('scroll', onScroll, { passive:true });
+  })();
+  (function(){
+    var items = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)){ items.forEach(function(el){el.classList.add('in')}); return; }
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold:0.12 });
+    items.forEach(function(el){ io.observe(el); });
+  })();
+</script>
+</body>
+</html>
