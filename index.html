@@ -140,12 +140,42 @@
     display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
     font-family:var(--kai);font-size:14px;color:var(--ink-3);letter-spacing:.18em}
   .sign .stamp{color:var(--cin)}
+  .sign .who{font-size:19px;letter-spacing:.22em;color:var(--ink);font-family:var(--kai)}
 
   .reveal{opacity:0;transform:translateY(30px);transition:opacity 1s ease,transform 1s cubic-bezier(.2,.7,.3,1)}
   .reveal.in{opacity:1;transform:none}
+
+  /* 音乐按钮 */
+  .music-chip{
+    position:fixed;right:22px;bottom:22px;z-index:50;
+    display:inline-flex;align-items:center;gap:9px;
+    padding:11px 18px;border-radius:999px;
+    background:rgba(251,247,238,.92);border:1px solid rgba(158,43,34,.42);
+    color:var(--cin);font-family:var(--kai);font-size:13.5px;letter-spacing:.1em;
+    box-shadow:0 8px 26px rgba(21,19,15,.14);cursor:pointer;
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    transition:transform .3s ease,box-shadow .3s ease,background .3s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .music-chip:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(21,19,15,.2)}
+  .music-chip .ico{font-size:15px;line-height:1}
+  .music-chip.playing{background:var(--cin);color:#fdf7ea;border-color:var(--cin)}
+  .music-chip.playing .ico{animation:beat 1.6s ease-in-out infinite}
+  @keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.22)}}
+  .music-chip .bar{display:inline-flex;align-items:flex-end;gap:2px;height:12px}
+  .music-chip .bar i{display:block;width:2px;background:currentColor;opacity:.55;animation:eq 1s ease-in-out infinite}
+  .music-chip .bar i:nth-child(1){height:5px;animation-delay:0s}
+  .music-chip .bar i:nth-child(2){height:11px;animation-delay:.18s}
+  .music-chip .bar i:nth-child(3){height:7px;animation-delay:.36s}
+  .music-chip:not(.playing) .bar{display:none}
+  @keyframes eq{0%,100%{transform:scaleY(.5)}50%{transform:scaleY(1)}}
+  @media (max-width:680px){
+    .music-chip{right:14px;bottom:14px;padding:10px 15px;font-size:12.5px}
+  }
   @media (prefers-reduced-motion:reduce){
     .reveal{opacity:1;transform:none;transition:none}
     .scroll i{animation:none}
+    .music-chip.playing .ico{animation:none}
     html{scroll-behavior:auto}
   }
   @media (max-width:680px){
@@ -265,7 +295,7 @@
   </div>
 
   <div class="hero-foot">
-    <div>分享 · 不为劝你什么</div>
+    <div>陈嘉丰 · 分享给您</div>
     <div class="scroll">往下看 <i></i></div>
   </div>
 </header>
@@ -336,7 +366,7 @@
     <p>不用夸它好听，只要告诉我：<strong>你听的时候，想到的是谁。</strong></p>
     <p>这首我听了十三年，每次想到的人都不太一样。这大概就是它厉害的地方。</p>
     <div class="sign">
-      <span>—— 分享给你的人</span>
+      <span class="who">—— 陈嘉丰</span>
       <span class="stamp">二〇二六 · 冬</span>
     </div>
   </section>
@@ -371,6 +401,70 @@
       es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
     }, { threshold:0.12 });
     items.forEach(function(el){ io.observe(el); });
+  })();
+</script>
+
+<audio id="bgm" src="hongchen.mp3" loop preload="auto" playsinline webkit-playsinline></audio>
+<button class="music-chip" id="musicChip" type="button" aria-label="播放背景音乐">
+  <span class="ico">♪</span>
+  <span class="txt" id="musicTxt">听《红尘客栈》</span>
+  <span class="bar"><i></i><i></i><i></i></span>
+</button>
+
+<script>
+  (function(){
+    var audio = document.getElementById('bgm');
+    var chip  = document.getElementById('musicChip');
+    var txt   = document.getElementById('musicTxt');
+    if (!audio || !chip) return;
+
+    var tried = false;
+
+    function markPlaying(on){
+      chip.classList.toggle('playing', on);
+      txt.textContent = on ? '暂停' : '听《红尘客栈》';
+    }
+
+    audio.addEventListener('play',  function(){ markPlaying(true);  });
+    audio.addEventListener('pause', function(){ markPlaying(false); });
+    audio.addEventListener('error', function(){
+      txt.textContent = '音频未就绪';
+      chip.style.borderColor = 'rgba(21,19,15,.25)';
+      chip.style.color = 'var(--ink-3)';
+    });
+
+    function tryPlay(){
+      var p = audio.play();
+      if (p && p.catch) {
+        p.catch(function(){ markPlaying(false); });
+      }
+    }
+
+    // 进入页面先尝试自动播放
+    window.addEventListener('load', function(){
+      if (tried) return;
+      tried = true;
+      tryPlay();
+    });
+
+    // 微信内置浏览器：等桥接就绪再试
+    document.addEventListener('WeixinJSBridgeReady', tryPlay, false);
+    document.addEventListener('DOMContentLoaded', function(){
+      if (window.WeixinJSBridge) tryPlay();
+    });
+
+    // 首次任意点击/触摸也尝试一次（绕过自动播放限制）
+    ['touchstart','click'].forEach(function(evt){
+      document.addEventListener(evt, function once(){
+        if (!audio.paused) return;
+        tryPlay();
+      }, { once:true, passive:true });
+    });
+
+    chip.addEventListener('click', function(e){
+      e.stopPropagation();
+      if (audio.paused) { tryPlay(); } else { audio.pause(); }
+    });
   })();
 </script>
 </body>
