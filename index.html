@@ -255,6 +255,26 @@
     .reveal.in .poem p:nth-child(2){transition-delay:.18s}
     .reveal.in .poem p:nth-child(3){transition-delay:.36s}
   }
+
+  /* ===== 整列墨晕：一层到底，避免分节出现色块接缝 ===== */
+  .wrap::before{
+    content:"";position:absolute;top:-80px;bottom:-80px;left:-90px;right:-90px;
+    z-index:0;pointer-events:none;
+    background-image:
+      radial-gradient(1200px 760px at 50% 2%, rgba(176,138,78,.055), transparent 62%),
+      radial-gradient(1100px 820px at 50% 46%, rgba(31,65,82,.035), transparent 64%),
+      radial-gradient(1150px 800px at 50% 96%, rgba(176,138,78,.05), transparent 62%);
+  }
+  /* 卷轴边线：一条极淡的竖线贯穿正文 */
+  .wrap::after{
+    content:"";position:absolute;top:40px;bottom:60px;left:-26px;width:1px;z-index:0;pointer-events:none;
+    background:linear-gradient(180deg, transparent, rgba(21,19,15,.10) 14%, rgba(21,19,15,.10) 86%, transparent);
+  }
+  @media (max-width:680px){
+    .wrap::after{display:none}
+    .wrap::before{left:-30px;right:-30px}
+  }
+
   @media (prefers-reduced-motion:reduce){
     .reveal{opacity:1;transform:none;transition:none}
     .scroll i{animation:none}
