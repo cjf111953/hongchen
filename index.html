@@ -275,6 +275,16 @@
     .wrap::before{left:-30px;right:-30px}
   }
 
+
+  /* ===== 各节专属小物（仅宽屏显示，不压正文） ===== */
+  .deco-prop{display:none}
+  @media (min-width:1000px){
+    .deco-prop{display:block;position:absolute;z-index:0;pointer-events:none;color:#9c8c6e;opacity:.30;will-change:transform}
+    .deco-prop svg{display:block;width:100%;height:100%}
+    .deco-boat{bottom:18px;right:-76px;width:250px;height:130px}
+    .deco-tassel{top:60px;right:-96px;width:112px;height:310px}
+    .deco-lantern{top:-10px;left:-108px;width:140px;height:230px}
+  }
   @media (prefers-reduced-motion:reduce){
     .reveal{opacity:1;transform:none;transition:none}
     .scroll i{animation:none}
@@ -420,6 +430,13 @@
   </section>
 
   <section class="reveal" id="why">
+    <div class="deco-prop deco-boat" data-speed="0.4" aria-hidden="true"><svg viewBox="0 0 180 96" fill="none">
+      <path d="M16 60 q74 20 148 0" stroke="currentColor" stroke-width="1.3"/>
+      <path d="M40 62 q54 12 108 0" stroke="currentColor" stroke-width="1" opacity=".6"/>
+      <path d="M98 18 v44" stroke="currentColor" stroke-width="1.1"/>
+      <path d="M98 20 q28 13 0 32" stroke="currentColor" stroke-width="1.1"/>
+      <path d="M36 78 q22 -7 44 0 q22 7 44 0" stroke="currentColor" stroke-width=".9" opacity=".5"/>
+    </svg></div>
     <div class="deco deco-tr-s data-speed="0.85" aria-hidden="true"><svg viewBox="0 0 260 150" fill="none">
       <path d="M0 128 L50 64 L86 100 L128 44 L172 96 L206 68 L260 126" stroke="currentColor" stroke-width="1.3"/>
       <path d="M0 142 L62 92 L108 120 L150 82 L196 118 L260 96" stroke="currentColor" stroke-width="1" opacity=".55"/>
@@ -443,6 +460,15 @@
   </section>
 
   <section class="reveal" id="lyric">
+    <div class="deco-prop deco-tassel" data-speed="0.7" aria-hidden="true"><svg viewBox="0 0 90 250" fill="none">
+      <path d="M45 4 v30" stroke="currentColor" stroke-width="1.2"/>
+      <circle cx="45" cy="42" r="8" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M37 54 h16" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M45 54 v104" stroke="currentColor" stroke-width="1.1"/>
+      <path d="M45 158 q-15 24 -11 62" stroke="currentColor" stroke-width="1"/>
+      <path d="M45 158 v64" stroke="currentColor" stroke-width="1"/>
+      <path d="M45 158 q15 24 11 62" stroke="currentColor" stroke-width="1"/>
+    </svg></div>
     <div class="deco deco-bl data-speed="0.5" aria-hidden="true"><svg viewBox="0 0 260 180" fill="none">
       <path d="M30 120 q10 -26 40 -22 q4 -22 30 -22 q24 0 28 20 q26 0 26 18 q0 16 -24 16 h-78 q-22 0 -22 -10z"
             stroke="currentColor" stroke-width="1.3"/>
@@ -465,6 +491,18 @@
   </section>
 
   <section class="reveal" id="wish">
+    <div class="deco-prop deco-lantern" data-speed="0.55" aria-hidden="true"><svg viewBox="0 0 120 200" fill="none">
+      <path d="M60 6 v18" stroke="currentColor" stroke-width="1.2"/>
+      <rect x="43" y="22" width="34" height="8" rx="2" stroke="currentColor" stroke-width="1.2"/>
+      <ellipse cx="60" cy="74" rx="35" ry="42" stroke="currentColor" stroke-width="1.3"/>
+      <path d="M25 74 h70" stroke="currentColor" stroke-width="1" opacity=".65"/>
+      <path d="M60 32 v84" stroke="currentColor" stroke-width=".9" opacity=".5"/>
+      <rect x="47" y="114" width="26" height="7" rx="2" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M60 121 v26" stroke="currentColor" stroke-width="1.1"/>
+      <path d="M53 147 q7 18 7 34" stroke="currentColor" stroke-width="1"/>
+      <path d="M60 147 v36" stroke="currentColor" stroke-width="1"/>
+      <path d="M67 147 q-7 18 -7 34" stroke="currentColor" stroke-width="1"/>
+    </svg></div>
     <div class="deco deco-tr-s" aria-hidden="true"><svg viewBox="0 0 260 150" fill="none">
       <path d="M0 128 L50 64 L86 100 L128 44 L172 96 L206 68 L260 126" stroke="currentColor" stroke-width="1.3"/>
       <path d="M0 142 L62 92 L108 120 L150 82 L196 118 L260 96" stroke="currentColor" stroke-width="1" opacity=".55"/>
